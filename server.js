@@ -17,11 +17,12 @@ function start(route, handle){
     var pathname = url.parse(request.url).pathname
     //3.2 我们将使用依赖注入的方式较松散地添加路由模块
     //4.2 这样我们就在start()函数里添加了handle参数，并且把handle对象作为第一个参数传递给了route()回调函数。
-    route(handle,pathname);
-
     console.log("Request for "+ pathname +" received.");    
     response.writeHead(200,{"Content-Type":"text/plain"});
-    response.write("Hello World");
+
+    //5.3 调用路由并改写返回
+    var content = route(handle, pathname)
+    response.write(content);
     response.end();
   }
 
